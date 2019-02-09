@@ -6,7 +6,7 @@ using UnityInjector.Attributes;
 namespace CM3D2.MaidOyako.Plugin
 {
 	[PluginName("MaidOyako")]
-	[PluginVersion("1.0.0.0")]
+	[PluginVersion("1.0.1.0")]
 	public class MaidOyako : PluginBase
 	{
 		// ConfigDataからのデータパス取得用

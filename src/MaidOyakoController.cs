@@ -31,6 +31,7 @@ namespace CM3D2.MaidOyako.Plugin
 		private bool m_isHideYotogiCommandMen;				// 夜伽コマンドメニューをけしたか
 		private FieldInfo m_ctrlBehNowFI;					// くっつく方のコントローラー側の現在のControllerBehaviorを取得するためのFieldInfo
 		private AVRControllerBehavior m_ctrlBehNow;		// m_ctrlBehNowFIで取得したControllerBehavior
+		private ButtonsInput m_oyakoTrg;					// 親子付け開始のボタン判定
 
 		private List<Transform> m_handObjList = new List<Transform>();                  // コントローラーの表示用オブジェクト くっついている間これらは非アクティブにする
 		private List<Maid> m_addColMaid = new List<Maid>();                             // コライダーを付けたメイドさんのリスト
@@ -46,6 +47,7 @@ namespace CM3D2.MaidOyako.Plugin
 #if DISP_TRIGGER
 			gameObject.layer = LayerMask.NameToLayer( "OvrGrabHand" );
 #endif // DISP_TRIGGER
+			m_oyakoTrg = new ButtonsInput( Config.Instance.startButton, AVRControllerButtons.BTN.GRIP, AVRControllerButtons.BTN.GRIP );
 			// VRMenuがあるかを調べる
 			_findVRMenu();
 		}
@@ -99,11 +101,11 @@ namespace CM3D2.MaidOyako.Plugin
 			// コントローラーの役割確定前のみ自身が入力用として選択されたかを判定する
 			if ( !IsControllerConfirm )
 			{
-				IsInputController = _isOyakoTrg( m_thisController );
+				IsInputController = m_oyakoTrg.IsPress( m_thisController );
 			}
 
 			// もう一方のコントローラーで操作する
-			bool bTrg = _isOyakoTrg( m_inputController );
+			bool bTrg = m_oyakoTrg.IsPress( m_inputController );
 			if ( bTrg )
 			{
 				IsControllerConfirm = true;
@@ -264,25 +266,6 @@ namespace CM3D2.MaidOyako.Plugin
 
 			// 無効にしていたオブジェクトを復活させる
 			_dispHandObject();
-		}
-
-		// 親子付け開始/終了のコントローラーの入力があったか
-		private bool _isOyakoTrg( AVRController controller )
-		{
-			if ( controller != null &&
-				 controller.VRControllerButtons != null )
-			{
-				// グリップ状態で
-				if ( controller.VRControllerButtons.GetPress( AVRControllerButtons.BTN.GRIP ) )
-				{
-					// トリガーが引かれたら
-					if ( controller.VRControllerButtons.GetPressDown( AVRControllerButtons.BTN.TRIGGER ) )
-					{
-						return true;
-					}
-				}
-			}
-			return false;
 		}
 
 		// m_trans_dummy の位置/回転をメイドさんの位置にリセットする

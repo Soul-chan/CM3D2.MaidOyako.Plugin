@@ -8,7 +8,7 @@ namespace CM3D2.MaidOyako.Plugin
 	public class Data
 	{
 		// 親子付けを有効にするシーン名を設定する
-		public List<string> sceneNameList = new List<string>()
+		public string[] sceneNameList = new string[]
 		{
 			"SceneYotogi",					// 夜伽
 			"SceneYotogiWithChubLip",		// Chu-B Lipの夜伽
@@ -16,6 +16,9 @@ namespace CM3D2.MaidOyako.Plugin
 		//	"SceneFreeModeSelect",			// 回想モードVIP
 		//	"SceneADV",						// VIP
 		};
+
+		// 親子付け開始ボタン
+		public string startButton = "GRIP + GRIP";
 	}
 	class Config
 	{
@@ -36,6 +39,8 @@ namespace CM3D2.MaidOyako.Plugin
 						XmlSerializer serializer = new XmlSerializer( typeof( Data ) );
 						m_config = (Data)serializer.Deserialize( sr );
 						sr.Close();
+
+						Save();
 					}
 					catch
 					{
