@@ -53,6 +53,7 @@ Viveトラッカーは未対応です。(こちらも持っていないので)
 GitHubでのライセンスは一番緩そうな[MIT](https://github.com/Soul-chan/CM3D2.MaidOyako.Plugin/blob/master/LICENSE)ライセンスにしていますが、  
 基本的なスタンスはこれまでの↓から変更はありません。  
 改変、転載、ご自由にどうぞ。  
+プルリクエストも大歓迎です。  
 複数ファイルですので、AutoCompileに「CM3D2.MaidOyako.Plugin」フォルダ毎入れて貰えればコンパイル出来ます。  
 
     ※MODはKISSサポート対象外です。
